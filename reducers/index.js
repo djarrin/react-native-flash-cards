@@ -1,15 +1,14 @@
-import { ADD_CARD, ADD_DECK } from "../actions";
+import { ADD_CARD, ADD_DECK, LOAD_DECK } from "../actions";
 import { combineReducers } from 'redux';
 
 function cardDecks(state = {}, action) {
-    const {title} = action;
+    const {title, questions} = action;
 
     switch (action.type) {
         case ADD_CARD:
             return {}
 
         case ADD_DECK:
-            console.log(action);
             return {
                 ...state,
                 [title]: {
@@ -18,6 +17,14 @@ function cardDecks(state = {}, action) {
                 }
             }
 
+        case LOAD_DECK:
+            return {
+                ...state,
+                [title]: {
+                    title: title,
+                    questions: questions
+                }
+            }
         default :
             return state
     }

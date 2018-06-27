@@ -23,7 +23,7 @@ class NewDeck extends Component {
 
         let newDeck = {
             title: titleText,
-            question: []
+            questions: []
         }
 
         submitDeck({deck:newDeck, key:titleText })
