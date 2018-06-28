@@ -27,6 +27,19 @@ class NewDeck extends Component {
         }
 
         submitDeck({deck:newDeck, key:titleText })
+
+        this.setState({
+            titleText: ''
+        })
+
+        this.toListScreen()
+    }
+
+    toListScreen = () => {
+        const backAction = NavigationActions.back({
+            key: 'DeckList',
+        });
+        this.props.navigation.dispatch(backAction);
     }
 
     updateDeckInput = (input) => {
@@ -57,7 +70,6 @@ class NewDeck extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         padding: 20
     },
     input: {
@@ -66,12 +78,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: gray,
         padding: 10,
-        color: black,
     },
     submitBtn: {
-        color: white,
-        fontSize: 22,
-        textAlign: 'center',
         backgroundColor: green,
         padding: 10,
         height: 45,
