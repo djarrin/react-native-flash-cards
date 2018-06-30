@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import {addDeck} from "../actions";
 import { removeDeck } from "../actions";
 import { deleteDeck } from "../utils/api";
+import { NavigationActions } from 'react-navigation'
 
 class Deck extends Component {
     static propTypes = {
@@ -13,6 +14,16 @@ class Deck extends Component {
         questions: PropTypes.array.isRequired,
         deckKey: PropTypes.string.isRequired
     }
+
+    navigateAction = NavigationActions.navigate({
+        routeName: 'DeckOptions',
+
+        params: {
+            name: this.props.title
+        },
+
+        action: NavigationActions.navigate({ routeName: 'DeckOptions' }),
+    });
 
     removeDeck = () => {
         const {dispatch, deckKey} = this.props
@@ -23,6 +34,11 @@ class Deck extends Component {
 
         deleteDeck({key: deckKey});
 
+    }
+
+    viewDeck = () => {
+        const {navigation, title} = this.props
+        this.props.navigation.dispatch(this.navigateAction);
     }
 
 
@@ -36,6 +52,7 @@ class Deck extends Component {
                     <Text style={styles.deckQuestionCount}>{questions.length} cards</Text>
                     <TouchableOpacity
                         style={[styles.deckOptions, {backgroundColor: green}]}
+                        onPress={this.viewDeck}
                     >
                         <Text>Select Deck</Text>
                     </TouchableOpacity>

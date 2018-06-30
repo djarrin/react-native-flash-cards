@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import { green, teal, purple, gray, white, black } from "../utils/colors";
 import Deck from './Deck'
-import {fetchDecks} from "../utils/api";
-import {loadDeck} from "../actions";
 
 
 class DeckList extends Component {
@@ -13,7 +10,7 @@ class DeckList extends Component {
         const {decks} = this.props;
 
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 {typeof decks !== 'undefined' ? Object.keys(decks).map((key, index) => (
                     // Need to find out whats going wrong here for android
                     <Deck
@@ -21,9 +18,10 @@ class DeckList extends Component {
                         questions={decks[key].questions}
                         key={index}
                         deckKey={key}
+                        navigation={this.props.navigation}
                     />
                 )):''}
-            </View>
+            </ScrollView>
         )
     }
 }

@@ -24,3 +24,13 @@ export function deleteDeck({key}) {
             AsyncStorage.setItem(DECK_KEY, JSON.stringify(data))
         })
 }
+
+export function getDeck({key}) {
+    console.log('key: ' + JSON.stringify(key))
+    return AsyncStorage.getItem(DECK_KEY)
+        .then((result) => {
+            const data = JSON.parse(result)
+            console.log('data[key]: ' + JSON.stringify(data[key]));
+            return data[key]
+    })
+}

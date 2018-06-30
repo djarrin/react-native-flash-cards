@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform, ScrollView } from 'react-native';
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createStore, applyMiddleware } from 'redux'
@@ -12,6 +12,7 @@ import DeckList from './Components/DeckList'
 import { fetchDecks } from "./utils/api";
 import {addDeck, loadDeck} from "./actions";
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import DeckOptions from './Components/DeckOptions'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (
@@ -67,18 +68,20 @@ const MainNavigator = createStackNavigator({
             }
         }
     },
-    // EntryDetail: {
-    //     screen: EntryDetail,
-    //     navigationOptions: {
-    //         headerTintColor: white,
-    //         headerStyle: {
-    //             backgroundColor: purple,
-    //             marginTop: Platform.OS === 'ios' ? -30:0
-    //
-    //         },
-    //
-    //     }
-    // }
+    DeckOptions: {
+        screen: DeckOptions,
+        path: 'deck/:name',
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.name}`,
+            headerTintColor: purple,
+            headerStyle: {
+                backgroundColor: green,
+                marginTop: Platform.OS === 'ios' ? -30:0
+
+            },
+
+        })
+    }
 })
 
 export default class App extends React.Component {
