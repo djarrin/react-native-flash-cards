@@ -2,11 +2,17 @@ import {ADD_CARD, ADD_DECK, LOAD_DECK, REMOVE_DECK} from "../actions";
 import { combineReducers } from 'redux';
 
 function cardDecks(state = {}, action) {
-    const {title, questions, deckKey} = action;
+    const {title, questions, deckKey, question, answer} = action;
 
     switch (action.type) {
         case ADD_CARD:
-            return {}
+            return {
+                ...state,
+                [deckKey]: {
+                    title: deckKey,
+                   questions: state[deckKey].questions.concat({question: question, answer: answer})
+                }
+            }
 
         case ADD_DECK:
             return {

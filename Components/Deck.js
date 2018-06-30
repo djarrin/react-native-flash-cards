@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingVi
 import PropTypes from 'prop-types';
 import { green, red } from "../utils/colors";
 import { connect } from 'react-redux'
-import {addDeck} from "../actions";
 import { removeDeck } from "../actions";
 import { deleteDeck } from "../utils/api";
 import { NavigationActions } from 'react-navigation'
@@ -37,8 +36,8 @@ class Deck extends Component {
     }
 
     viewDeck = () => {
-        const {navigation, title} = this.props
-        this.props.navigation.dispatch(this.navigateAction);
+        const {navigation} = this.props
+        navigation.dispatch(this.navigateAction);
     }
 
 

@@ -25,3 +25,13 @@ export function removeDeck({deckKey}) {
         deckKey
     }
 }
+
+export function addCard({deckKey, question, answer}) {
+    return {
+        type: ADD_CARD,
+        deckKey,
+        question,
+        answer
+    }
+
+}

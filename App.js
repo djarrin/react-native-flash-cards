@@ -13,6 +13,7 @@ import { fetchDecks } from "./utils/api";
 import {addDeck, loadDeck} from "./actions";
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckOptions from './Components/DeckOptions'
+import AddCard from './Components/AddCard'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (
@@ -73,6 +74,20 @@ const MainNavigator = createStackNavigator({
         path: 'deck/:name',
         navigationOptions: ({navigation}) => ({
             title: `${navigation.state.params.name}`,
+            headerTintColor: purple,
+            headerStyle: {
+                backgroundColor: green,
+                marginTop: Platform.OS === 'ios' ? -30:0
+
+            },
+
+        })
+    },
+    AddCard: {
+        screen: AddCard,
+        path: 'deck/add-card/:name',
+        navigationOptions: ({navigation}) => ({
+            title: `Add Card: ${navigation.state.params.name}`,
             headerTintColor: purple,
             headerStyle: {
                 backgroundColor: green,
