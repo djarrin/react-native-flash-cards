@@ -9,31 +9,13 @@ import {loadDeck} from "../actions";
 
 class DeckList extends Component {
 
-    componentDidMount() {
-        // const {dispatch} = this.props
-        // fetchDecks().then((res) => {
-        //     let decksObject = JSON.parse(res);
-        //
-        //     Object.keys(decksObject).map(e => {
-        //         let dispatchObject = {
-        //             key: e,
-        //             title: decksObject[e].title,
-        //             questions: decksObject[e].questions
-        //         }
-        //         dispatch(loadDeck(dispatchObject));
-        //
-        //     });
-        // })
-    }
-
     render() {
         const {decks} = this.props;
-        console.log('props: ' + JSON.stringify(this.props));
-
 
         return (
             <View style={styles.container}>
                 {typeof decks !== 'undefined' ? Object.keys(decks).map((key, index) => (
+                    // Need to find out whats going wrong here for android
                     <Deck
                         title={decks[key].title}
                         questions={decks[key].questions}

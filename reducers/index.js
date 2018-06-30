@@ -21,7 +21,6 @@ function cardDecks(state = {}, action) {
             //have to credit Halt001 on this thread for this solution: https://github.com/erikras/react-redux-universal-hot-example/issues/962
             let clone = Object.assign({}, state);
             delete clone[deckKey];
-            console.log(clone);
             return clone;
 
         case LOAD_DECK:

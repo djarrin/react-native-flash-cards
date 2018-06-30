@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import {
+    View,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    TextInput,
+    KeyboardAvoidingView,
+    Animated,
+    Keyboard
+} from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import { green, teal, purple, gray, white, black } from "../utils/colors";
+import { green, teal, purple, gray, white, black, lightBlue } from "../utils/colors";
 import LabelText from './LabelText'
 import { addDeck } from "../actions";
 import { submitDeck, fetchDecks } from "../utils/api";
 
 class NewDeck extends Component {
     state = {
-        titleText: ''
+        titleText: '',
+        notifierOpacity: new Animated.Value(0)
     }
 
     addNewDeck = () => {
-        const {titleText} = this.state
+        const {titleText, notifierOpacity} = this.state
         const {dispatch, store} = this.props
 
         let dispatchObject = {
@@ -32,14 +42,12 @@ class NewDeck extends Component {
             titleText: ''
         })
 
-        this.toListScreen()
-    }
+        Keyboard.dismiss()
 
-    toListScreen = () => {
-        const backAction = NavigationActions.back({
-            key: 'DeckList',
-        });
-        this.props.navigation.dispatch(backAction);
+        Animated.sequence([
+            Animated.spring(notifierOpacity, {toValue: 1, speed: 5}),
+            Animated.timing(notifierOpacity, {toValue: 0, duration: 3000})
+        ]).start()
     }
 
     updateDeckInput = (input) => {
@@ -47,7 +55,7 @@ class NewDeck extends Component {
     }
 
     render() {
-        const { titleText } = this.state
+        const { titleText, notifierOpacity } = this.state
 
         return (
             <View style={styles.container}>
@@ -63,6 +71,11 @@ class NewDeck extends Component {
                 >
                     <Text>Add Deck</Text>
                 </TouchableOpacity>
+                <Animated.View style={[styles.newMessageNotifyer, {opacity: notifierOpacity}]}>
+                    <Text  style={styles.messageStyles}>
+                        Your deck has been added check back at the decks view
+                    </Text>
+                </Animated.View>
             </View>
         )
     }
@@ -87,6 +100,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15
+    },
+    newMessageNotifyer: {
+        marginTop: 20,
+        backgroundColor: lightBlue,
+        padding: 25,
+        alignSelf: 'stretch',
+        borderRadius: 5
+    },
+    messageStyles: {
+        alignSelf: 'center',
+        fontSize: 20
     }
 })
 

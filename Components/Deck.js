@@ -5,6 +5,7 @@ import { green, red } from "../utils/colors";
 import { connect } from 'react-redux'
 import {addDeck} from "../actions";
 import { removeDeck } from "../actions";
+import { deleteDeck } from "../utils/api";
 
 class Deck extends Component {
     static propTypes = {
@@ -19,6 +20,9 @@ class Deck extends Component {
             deckKey: deckKey
         }
         dispatch(removeDeck(dispatchObject))
+
+        deleteDeck({key: deckKey});
+
     }
 
 
