@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { white, red, orange, pink,  blue, lightPurp} from './colors'
+import { orange, pink, lightPurp} from './colors'
 import { Notifications, Permissions } from 'expo'
 
 const NOTIFICATION_KEY = 'flashCards:notifications';

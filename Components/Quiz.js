@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import {NavigationActions} from "react-navigation";
 import {getDeck} from "../utils/api";
 import FlipCard from 'react-native-flip-card'
-import { green, red, teal, purple, gray, white, black, lightBlue } from "../utils/colors";
+import { green, red, teal, purple, gray, black, lightBlue } from "../utils/colors";
 
 
 class Quiz extends Component {
@@ -13,6 +14,14 @@ class Quiz extends Component {
         currentQuestionNumber: 0,
         cardFlipped: false
     }
+
+    navigateHomeAction = NavigationActions.navigate({
+        routeName: 'Home',
+
+        params: {},
+
+        action: NavigationActions.back({ routeName: 'Home' }),
+    });
 
     componentDidMount() {
         const {navigation} = this.props
@@ -50,11 +59,11 @@ class Quiz extends Component {
     }
 
     returnToHome = () => {
-
+        const { navigation } = this.props
+        navigation.dispatch(this.navigateHomeAction);
     }
 
     toggleFlip = () => {
-        console.log('flipped: ' + this.state.cardFlipped)
         this.setState({
             cardFlipped: !this.state.cardFlipped
         })
@@ -63,8 +72,7 @@ class Quiz extends Component {
     render() {
         const {questions, currentQuestionNumber, correct, wrong} = this.state
         const numberOfQuestions = questions.length
-        console.log('numberOfQuestions: ' + numberOfQuestions)
-        console.log('currentQuestionNumber: ' + currentQuestionNumber)
+
         return(
             <View style={styles.container}>
                 {(currentQuestionNumber === numberOfQuestions ? (
@@ -87,7 +95,7 @@ class Quiz extends Component {
                     </View>
                 ):(
                     <View>
-                        <Text style={styles.questionCount}>{currentQuestionNumber + 1}/{numberOfQuestions}</Text>
+                        <Text>{currentQuestionNumber + 1}/{numberOfQuestions}</Text>
                         <FlipCard
                             style={styles.flipContainer}
                             friction={6}
@@ -132,11 +140,6 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center'
-    },
-    cardContainer: {
-
-
     },
     flipContainer: {
         borderWidth: 0,
@@ -152,9 +155,6 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 25,
-    },
-    questionCount: {
-
     },
     instructions: {
         alignSelf: 'center',

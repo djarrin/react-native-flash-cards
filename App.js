@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform, ScrollView } from 'react-native';
+import { StyleSheet, View, StatusBar, Platform } from 'react-native';
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import NewDeck from './Components/NewDeck'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Constants } from 'expo'
-import { purple, blue, teal, green, red } from "./utils/colors";
+import { purple, green, red } from "./utils/colors";
 import { createLogger } from 'redux-logger'
 import DeckList from './Components/DeckList'
 import { fetchDecks } from "./utils/api";
-import {addDeck, loadDeck} from "./actions";
+import { loadDeck } from "./actions";
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckOptions from './Components/DeckOptions'
 import AddCard from './Components/AddCard'

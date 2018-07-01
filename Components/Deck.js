@@ -70,7 +70,6 @@ class Deck extends Component {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'stretch',
-        // flexDirection: 'row',
         justifyContent: 'center',
         borderBottomWidth: 1,
     },

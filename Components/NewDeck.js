@@ -5,16 +5,16 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    KeyboardAvoidingView,
     Animated,
-    Keyboard
+    Keyboard,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView
 } from 'react-native'
-import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import {green, teal, purple, gray, white, black, lightBlue, red} from "../utils/colors";
+import {green, gray, lightBlue, red} from "../utils/colors";
 import LabelText from './LabelText'
 import { addDeck } from "../actions";
-import { submitDeck, fetchDecks, getDeck } from "../utils/api";
+import { submitDeck, getDeck } from "../utils/api";
 
 class NewDeck extends Component {
     state = {
@@ -52,9 +52,11 @@ class NewDeck extends Component {
                     Animated.timing(notifierOpacity, {toValue: 0, duration: 3000})
                 ]).start()
             } else {
+                Keyboard.dismiss()
+
                 Animated.sequence([
                     Animated.spring(errorNotifierOpacity, {toValue: 1, speed: 5}),
-                    Animated.timing(errorNotifierOpacity, {toValue: 0, duration: 3000})
+                    Animated.timing(errorNotifierOpacity, {toValue: 0, duration: 5000})
                 ]).start()
             }
         })
@@ -66,7 +68,12 @@ class NewDeck extends Component {
     //we do this because the decks name is used as the key
     //and we don't want duplicate keys
     validate = () => {
-        return getDeck({key: this.state.titleText}).then((res) => {
+        const { titleText } = this.state
+
+        return getDeck({key: titleText}).then((res) => {
+            if(titleText.length === 0) {
+                return false
+            }
             return typeof res === 'undefined'
         })
     }
@@ -79,34 +86,38 @@ class NewDeck extends Component {
         const { titleText, notifierOpacity, errorNotifierOpacity } = this.state
 
         return (
-            <View style={styles.container}>
-                <LabelText text={"What will be the title of this deck?"}/>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={this.updateDeckInput}
-                    value={titleText}
-                />
-                <TouchableOpacity
-                    style={styles.submitBtn}
-                    onPress={this.addNewDeck}
-                >
-                    <Text>Add Deck</Text>
-                </TouchableOpacity>
-                <Animated.View
-                    style={[styles.newMessageNotifyer, {opacity: notifierOpacity}, {backgroundColor: lightBlue}]}
-                >
-                    <Text  style={styles.messageStyles}>
-                        Your deck has been added check back at the decks view
-                    </Text>
-                </Animated.View>
-                <Animated.View
-                    style={[styles.newMessageNotifyer, {opacity: errorNotifierOpacity}, {backgroundColor: red}]}
-                >
-                    <Text  style={styles.messageStyles}>
-                        The deck name you have tried to enter has already been taken, please try another name.
-                    </Text>
-                </Animated.View>
-            </View>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <View>
+                    <LabelText text={"What will be the title of this deck?"}/>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={this.updateDeckInput}
+                        value={titleText}
+                    />
+                    <TouchableOpacity
+                        style={styles.submitBtn}
+                        onPress={this.addNewDeck}
+                    >
+                        <Text>Add Deck</Text>
+                    </TouchableOpacity>
+                    <Animated.View
+                        style={[styles.newMessageNotifyer, {opacity: notifierOpacity}, {backgroundColor: lightBlue}]}
+                    >
+                        <Text  style={styles.messageStyles}>
+                            Your deck has been added check back at the decks view
+                        </Text>
+                    </Animated.View>
+                    <Animated.View
+                        style={[styles.newMessageNotifyer, {opacity: errorNotifierOpacity}, {backgroundColor: red}]}
+                    >
+                        <Text  style={styles.messageStyles}>
+                            The deck name you have tried to enter has already been taken (or you did not enter a deck name), please try another name.
+                        </Text>
+                    </Animated.View>
+                </View>
+            </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     newMessageNotifyer: {
-        marginTop: 20,
+        marginTop: 2,
         padding: 25,
         alignSelf: 'stretch',
         borderRadius: 5

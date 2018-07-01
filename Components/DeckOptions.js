@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { getDeck } from "../utils/api";
-import { green, red, lightBlue } from "../utils/colors";
+import { green, lightBlue } from "../utils/colors";
 import {NavigationActions} from "react-navigation";
 import {clearLocalNotification, setLocalNotification} from '../utils/helpers'
 
@@ -74,12 +74,14 @@ class DeckOptions extends Component {
                     <Text style={styles.questionCount}>{questions.length} cards</Text>
                 </View>
                 <View style={styles.controlPanel}>
-                    <TouchableOpacity
-                        style={[styles.buttonContainer, {backgroundColor: green}]}
-                        onPress={this.startQuiz}
-                    >
-                        <Text style={styles.buttonText}>Start Quiz</Text>
-                    </TouchableOpacity>
+                    {questions.length > 0 ? (
+                        <TouchableOpacity
+                            style={[styles.buttonContainer, {backgroundColor: green}]}
+                            onPress={this.startQuiz}
+                        >
+                            <Text style={styles.buttonText}>Start Quiz</Text>
+                        </TouchableOpacity>
+                    ):('')}
                     <TouchableOpacity
                         style={[styles.buttonContainer, {backgroundColor: lightBlue}]}
                         onPress={this.addCardView}
