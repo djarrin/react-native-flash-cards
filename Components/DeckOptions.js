@@ -14,16 +14,7 @@ class DeckOptions extends Component {
         this.refreshData()
     }
     handleOnNavigationback = () => {
-        // this.refreshData()
-        const {navigation} = this.props
-        const deckTitle = navigation.getParam('name', 'Deck');
-
-        getDeck({key: deckTitle}).then((deck) => {
-            this.setState({
-                title: deck.title,
-                questions: deck.questions
-            })
-        })
+        this.refreshData()
     }
 
     refreshData() {
@@ -49,13 +40,24 @@ class DeckOptions extends Component {
         action: NavigationActions.navigate({routeName: 'AddCard'}),
     });
 
+    navigateQuizAction = NavigationActions.navigate({
+        routeName: 'Quiz',
+
+        params: {
+            name: this.props.navigation.getParam('name', 'Deck')
+        },
+
+        action: NavigationActions.navigate({routeName: 'Quiz'}),
+    });
+
     addCardView = () => {
         const {navigation} = this.props
         navigation.dispatch(this.navigateAddCardAction);
     }
 
     startQuiz = () => {
-
+        const {navigation} = this.props
+        navigation.dispatch(this.navigateQuizAction);
     }
 
     render() {
@@ -68,16 +70,16 @@ class DeckOptions extends Component {
                 </View>
                 <View style={styles.controlPanel}>
                     <TouchableOpacity
-                        style={[styles.buttonContainer, {backgroundColor: lightBlue}]}
-                        onPress={this.addCardView}
-                    >
-                        <Text style={styles.buttonText}>Add Card</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
                         style={[styles.buttonContainer, {backgroundColor: green}]}
                         onPress={this.startQuiz}
                     >
                         <Text style={styles.buttonText}>Start Quiz</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, {backgroundColor: lightBlue}]}
+                        onPress={this.addCardView}
+                    >
+                        <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -14,6 +14,7 @@ import {addDeck, loadDeck} from "./actions";
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckOptions from './Components/DeckOptions'
 import AddCard from './Components/AddCard'
+import Quiz from './Components/Quiz'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (
@@ -88,6 +89,20 @@ const MainNavigator = createStackNavigator({
         path: 'deck/add-card/:name',
         navigationOptions: ({navigation}) => ({
             title: `Add Card: ${navigation.state.params.name}`,
+            headerTintColor: purple,
+            headerStyle: {
+                backgroundColor: green,
+                marginTop: Platform.OS === 'ios' ? -30:0
+
+            },
+
+        })
+    },
+    Quiz: {
+        screen: Quiz,
+        path: 'deck/quiz/:name',
+        navigationOptions: ({navigation}) => ({
+            title: `Quiz: ${navigation.state.params.name}`,
             headerTintColor: purple,
             headerStyle: {
                 backgroundColor: green,
