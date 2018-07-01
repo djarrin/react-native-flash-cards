@@ -22,9 +22,6 @@ class Quiz extends Component {
             this.setState({
                 questions: deck.questions
             })
-        }).then(() => {
-            console.log('questions: ' + JSON.stringify(this.state.questions))
-            console.log('questions 1: ' + JSON.stringify(this.state.questions[this.state.currentQuestionNumber - 1].question))
         })
     }
 
@@ -71,10 +68,10 @@ class Quiz extends Component {
         return(
             <View style={styles.container}>
                 {(currentQuestionNumber === numberOfQuestions ? (
-                    <View style={styles.flipContainer}>
-                        <Text>You got {correct} questions correct</Text>
-                        <Text>You got {wrong} questions incorrect</Text>
-                        <Text>That is a score of {(correct/numberOfQuestions)*100}%</Text>
+                    <View style={styles.endOfQuizContainer}>
+                        <Text style={[styles.endOfQuizText, {color: green}]}>You got {correct} questions correct</Text>
+                        <Text style={[styles.endOfQuizText, {color: red}]}>You got {wrong} questions incorrect</Text>
+                        <Text style={styles.endOfQuizText}>That is a score of {(correct/numberOfQuestions*100).toFixed(2)}%</Text>
                         <TouchableOpacity
                             style={[styles.answerButton, {backgroundColor: purple}]}
                             onPress={this.resetQuiz}
@@ -182,6 +179,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: 10
+    },
+    endOfQuizContainer: {
+        alignItems: 'center',
+        marginTop: 15
+    },
+    endOfQuizText: {
+        fontWeight: "700"
     }
 })
 
