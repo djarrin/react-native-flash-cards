@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import Deck from './Deck'
+import { green } from '../utils/colors'
 
 
 class DeckList extends Component {
@@ -20,7 +21,13 @@ class DeckList extends Component {
                         deckKey={key}
                         navigation={this.props.navigation}
                     />
-                )):''}
+                )):(
+                    <View style={styles.noDeckView}>
+                        <Text style={styles.noDeckText}>
+                            You have no decks currently created, please go to the add deck tab and add a new flash card deck!
+                        </Text>
+                    </View>
+                )}
             </ScrollView>
         )
     }
@@ -30,6 +37,14 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    noDeckView: {
+        alignItems: 'center',
+        backgroundColor: green
+    },
+    noDeckText: {
+        fontSize: 25,
+        // color: green,
     }
 })
 
