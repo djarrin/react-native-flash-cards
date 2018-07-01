@@ -10,7 +10,8 @@ class Quiz extends Component {
         questions: [],
         correct: 0,
         wrong: 0,
-        currentQuestionNumber: 0
+        currentQuestionNumber: 0,
+        cardFlipped: false
     }
 
     componentDidMount() {
@@ -30,14 +31,16 @@ class Quiz extends Component {
     cardCorrect = () => {
         this.setState({
             correct: this.state.correct + 1,
-            currentQuestionNumber: this.state.currentQuestionNumber + 1
+            currentQuestionNumber: this.state.currentQuestionNumber + 1,
+            cardFlipped: false
         })
     }
 
     cardIncorrect = () => {
         this.setState({
             wrong: this.state.wrong + 1,
-            currentQuestionNumber: this.state.currentQuestionNumber + 1
+            currentQuestionNumber: this.state.currentQuestionNumber + 1,
+            cardFlipped: false
         })
     }
 
@@ -51,6 +54,13 @@ class Quiz extends Component {
 
     returnToHome = () => {
 
+    }
+
+    toggleFlip = () => {
+        console.log('flipped: ' + this.state.cardFlipped)
+        this.setState({
+            cardFlipped: !this.state.cardFlipped
+        })
     }
 
     render() {
@@ -87,8 +97,8 @@ class Quiz extends Component {
                             perspective={1000}
                             flipHorizontal={true}
                             flipVertical={false}
-                            flip={false}
-                            clickable={true}
+                            flip={this.state.cardFlipped}
+                            clickable={false}
                             onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
                         >
                             <View style={[styles.card, {backgroundColor: teal}]}>
@@ -101,7 +111,7 @@ class Quiz extends Component {
                             </View>
                         </FlipCard>
                         <View style={{marginTop: 150}}>
-                            <Text style={styles.instructions}>(Press the card to flip the card and see the question/answer)</Text>
+                            <TouchableOpacity onPress={this.toggleFlip} style={styles.flip}><Text>Press Here to Flip</Text></TouchableOpacity>
                             <TouchableOpacity
                             style={[styles.answerButton, {backgroundColor: green}]}
                             onPress={this.cardCorrect}
@@ -160,10 +170,18 @@ const styles = StyleSheet.create({
         marginTop: 15,
         alignSelf: 'center',
         padding: 25,
-        borderRadius: 15,
+        borderRadius: 5,
     },
     responseButton: {
         color: black
+    },
+    flip: {
+        backgroundColor: teal,
+        borderRadius: 5,
+        padding: 15,
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginTop: 10
     }
 })
 
