@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import { addCardStorage } from '../utils/api'
 import { NavigationActions } from "react-navigation";
 
-const maxCharacterLength = 150;
+const maxCharacterLength = 75;
 class AddCard extends Component {
     state = {
         question: '',

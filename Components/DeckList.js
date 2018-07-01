@@ -8,7 +8,7 @@ import { green } from '../utils/colors'
 class DeckList extends Component {
 
     render() {
-        const {decks} = this.props;
+        const {decks, navigation} = this.props;
 
         return (
             <ScrollView style={styles.container}>
@@ -19,7 +19,7 @@ class DeckList extends Component {
                         questions={decks[key].questions}
                         key={index}
                         deckKey={key}
-                        navigation={this.props.navigation}
+                        navigation={navigation}
                     />
                 )):(
                     <View style={styles.noDeckView}>

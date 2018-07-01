@@ -35,17 +35,19 @@ class Quiz extends Component {
     }
 
     cardCorrect = () => {
+        const {correct, currentQuestionNumber} = this.state
         this.setState({
-            correct: this.state.correct + 1,
-            currentQuestionNumber: this.state.currentQuestionNumber + 1,
+            correct: correct + 1,
+            currentQuestionNumber: currentQuestionNumber + 1,
             cardFlipped: false
         })
     }
 
     cardIncorrect = () => {
+        const {wrong, currentQuestionNumber} = this.state
         this.setState({
-            wrong: this.state.wrong + 1,
-            currentQuestionNumber: this.state.currentQuestionNumber + 1,
+            wrong: wrong + 1,
+            currentQuestionNumber: currentQuestionNumber + 1,
             cardFlipped: false
         })
     }
@@ -64,13 +66,14 @@ class Quiz extends Component {
     }
 
     toggleFlip = () => {
+        const { cardFlipped } = this.state
         this.setState({
-            cardFlipped: !this.state.cardFlipped
+            cardFlipped: !cardFlipped
         })
     }
 
     render() {
-        const {questions, currentQuestionNumber, correct, wrong} = this.state
+        const { questions, currentQuestionNumber, correct, wrong, cardFlipped } = this.state
         const numberOfQuestions = questions.length
 
         return(
@@ -102,7 +105,7 @@ class Quiz extends Component {
                             perspective={1000}
                             flipHorizontal={true}
                             flipVertical={false}
-                            flip={this.state.cardFlipped}
+                            flip={cardFlipped}
                             clickable={false}
                             onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
                         >

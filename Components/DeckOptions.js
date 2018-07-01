@@ -18,6 +18,8 @@ class DeckOptions extends Component {
         this.refreshData()
     }
 
+    //responsible for either preparing object for first navigation or
+    //refreshing data after a new card has been added to the deck
     refreshData() {
         const {navigation} = this.props
         const deckTitle = navigation.getParam('name', 'Deck');
