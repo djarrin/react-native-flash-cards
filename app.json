@@ -1,5 +1,17 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
-  }
+    "sdkVersion": "27.0.0",
+    "orientation": "portrait",
+    "name": "UdaciCards",
+    "description": "This app allows you to create flash cards for studying.",
+    "slug": "udacicards",
+    "version": "1.0",
+    "icon": "https://image.winudf.com/v2/image/Y29tLmxlbW9yaXplX2ljb25fd210OTJmZWk/icon.png?w=170&fakeurl=1&type=.png",
+    "notification": {
+      "icon": "https://image.winudf.com/v2/image/Y29tLmxlbW9yaXplX2ljb25fd210OTJmZWk/icon.png?w=170&fakeurl=1&type=.png"
+    },
+    "ios": {
+      "bundleIdentifier": "org.udacicards.exp",
+    }
+  },
 }

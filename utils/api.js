@@ -40,6 +40,11 @@ export function getDeck({key}) {
     return AsyncStorage.getItem(DECK_KEY)
         .then((result) => {
             const data = JSON.parse(result)
-            return data[key]
+            console.log('key: ' + JSON.stringify(key))
+            console.log('data: ' + JSON.stringify(data))
+            if(data !== null) {
+                return data[key]
+            }
+            return undefined
     })
 }

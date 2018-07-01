@@ -71,6 +71,7 @@ class NewDeck extends Component {
         const { titleText } = this.state
 
         return getDeck({key: titleText}).then((res) => {
+            console.log('res: ' + JSON.stringify(res))
             if(titleText.length === 0) {
                 return false
             }

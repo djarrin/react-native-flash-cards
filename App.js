@@ -142,13 +142,15 @@ const styles = StyleSheet.create({
 fetchDecks().then((res) => {
     let decksObject = JSON.parse(res);
 
-    Object.keys(decksObject).map(e => {
-        let dispatchObject = {
-            key: e,
-            title: decksObject[e].title,
-            questions: decksObject[e].questions
-        }
-        store.dispatch(loadDeck(dispatchObject));
+    if(res !== null) {
+        Object.keys(decksObject).map(e => {
+            let dispatchObject = {
+                key: e,
+                title: decksObject[e].title,
+                questions: decksObject[e].questions
+            }
+            store.dispatch(loadDeck(dispatchObject));
 
-    });
+        });
+    }
 })

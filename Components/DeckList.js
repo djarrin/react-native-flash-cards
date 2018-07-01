@@ -17,7 +17,7 @@ class DeckList extends Component {
                     <Deck
                         title={decks[key].title}
                         questions={decks[key].questions}
-                        key={index}
+                        key={decks[key].title}
                         deckKey={key}
                         navigation={navigation}
                     />
