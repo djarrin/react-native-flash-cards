@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, TextInput, KeyboardAvoidingVi
 import { getDeck } from "../utils/api";
 import { green, red, lightBlue } from "../utils/colors";
 import {NavigationActions} from "react-navigation";
+import {clearLocalNotification, setLocalNotification} from '../utils/helpers'
 
 
 class DeckOptions extends Component {
@@ -58,6 +59,10 @@ class DeckOptions extends Component {
     startQuiz = () => {
         const {navigation} = this.props
         navigation.dispatch(this.navigateQuizAction);
+
+        //if they start looking at a deck clear the notification and set a new one
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     render() {

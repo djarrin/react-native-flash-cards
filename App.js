@@ -15,6 +15,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckOptions from './Components/DeckOptions'
 import AddCard from './Components/AddCard'
 import Quiz from './Components/Quiz'
+import {setLocalNotification} from "./utils/helpers";
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
     return (
@@ -115,6 +116,10 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+
+    componentDidMount(){
+        setLocalNotification()
+    }
 
     render() {
     return (
